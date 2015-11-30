@@ -1,0 +1,37 @@
+[global]
+	; use cephx or none
+	auth supported = cephx
+	keyring = /etc/ceph/keyring
+
+[mon]
+	mon data = /srv/mon.$id
+	keyring = /etc/ceph/keyring.$name
+
+[mds]
+	keyring = /etc/ceph/keyring.$name
+
+[osd]
+	osd data = /srv/osd.$id
+	osd journal = /srv/osd.$id.journal
+	osd journal size = 1000
+	; uncomment the following line if you are mounting with ext4
+	; filestore xattr use omap = true
+	keyring = /etc/ceph/keyring.$name
+
+{{range service "ceph-mon" "passing"}}
+[{{ .Name }}]
+	host = {{ .Name }}
+	mon addr = {{ .Address }}:{{ .Port }}
+{{end}}
+
+[osd.0]
+	host = myserver01
+
+[osd.1]
+	host = myserver02
+
+[osd.2]
+	host = myserver03
+
+[mds.a]
+	host = myserver01
