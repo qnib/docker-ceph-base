@@ -18,20 +18,18 @@
 	; filestore xattr use omap = true
 	keyring = /etc/ceph/keyring.$name
 
-{{range service "ceph-mon" "passing"}}
-[{{ .Name }}]
-	host = {{ .Name }}
+{{range service "ceph-mon"}}
+[ mon.{{ .Node }}]
+	host = {{ .Node }}
 	mon addr = {{ .Address }}:{{ .Port }}
 {{end}}
 
-[osd.0]
-	host = myserver01
+{{range service "ceph-osd"}}
+[ osd.{{ .Node }}]
+	host = {{ .Node }}
+{{end}}
 
-[osd.1]
-	host = myserver02
-
-[osd.2]
-	host = myserver03
-
-[mds.a]
-	host = myserver01
+{{range service "ceph-mds"}}
+[ mds.{{ .Node }}]
+	host = {{ .Node }}
+{{end}}

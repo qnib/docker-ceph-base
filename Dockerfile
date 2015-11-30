@@ -13,3 +13,4 @@ RUN wget -q -O- 'https://download.ceph.com/keys/release.asc' | apt-key add - && 
    apt-get update && apt-get install -y --force-yes ceph radosgw && \
    apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ADD etc/consul-templates/templates/ceph.conf.ctmpl /etc/consul-templates/templates/
+#ADD etc/ceph/ceph.client.admin.keyring /etc/ceph/
