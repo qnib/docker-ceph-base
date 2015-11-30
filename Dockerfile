@@ -5,7 +5,7 @@ ENV CEPH_VERSION=hammer \
 
 
 # Install prerequisites
-RUN apt-get update &&  apt-get install -y wget unzip
+RUN apt-get update &&  apt-get install -y wget unzip jq
 
 # Install Ceph
 RUN wget -q -O- 'https://download.ceph.com/keys/release.asc' | apt-key add - && \
