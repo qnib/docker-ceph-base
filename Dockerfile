@@ -16,4 +16,3 @@ RUN apt-get update &&  apt-get install -y wget unzip jq
 RUN wget -q -O- 'https://download.ceph.com/keys/release.asc' | apt-key add - && \
    echo deb http://ceph.com/debian-${CEPH_VERSION}/ ${DEBIAN_VERSION} main | tee /etc/apt/sources.list.d/ceph-${CEPH_VERSION}.list && \
    apt-get update 
-ADD etc/consul-templates/templates/*.ctmpl /etc/consul-templates/templates/
