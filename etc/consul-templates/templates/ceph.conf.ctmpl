@@ -1,35 +1,17 @@
-[global]
-	; use cephx or none
-	auth supported = cephx
-	keyring = /etc/ceph/keyring
-
-[mon]
-	mon data = /srv/mon.$id
-	keyring = /etc/ceph/keyring.$name
-
-[mds]
-	keyring = /etc/ceph/keyring.$name
-
-[osd]
-	osd data = /srv/osd.$id
-	osd journal = /srv/osd.$id.journal
-	osd journal size = 1000
-	; uncomment the following line if you are mounting with ext4
-	; filestore xattr use omap = true
-	keyring = /etc/ceph/keyring.$name
-
+aglobal]
+fsid = ebea476b-1fb0-408c-8194-0c8af9c0dcda
+mon initial members = ceph
+mon host = 
 {{range service "ceph-mon"}}
-[ mon.{{ .Node }}]
-	host = {{ .Node }}
-	mon addr = {{ .Address }}:{{ .Port }}
-{{end}}
+mon host = {{ .Address }}{{end}}
+auth cluster required = cephx
+auth service required = cephx
+auth client required = cephx
+osd crush chooseleaf type = 0
+osd journal size = 100
+osd pool default pg num = 8
+osd pool default pgp num = 8
+osd pool default size = 1
+public network = 172.17.0.0/16
+cluster network = 172.17.0.0/16
 
-{{range service "ceph-osd"}}
-[ osd.{{ .Node }}]
-	host = {{ .Node }}
-{{end}}
-
-{{range service "ceph-mds"}}
-[ mds.{{ .Node }}]
-	host = {{ .Node }}
-{{end}}
