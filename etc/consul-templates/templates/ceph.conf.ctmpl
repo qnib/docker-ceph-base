@@ -1,7 +1,6 @@
 aglobal]
 fsid = ebea476b-1fb0-408c-8194-0c8af9c0dcda
 mon initial members = ceph
-mon host = 
 {{range service "ceph-mon"}}
 mon host = {{ .Address }}{{end}}
 auth cluster required = cephx
