@@ -9,7 +9,7 @@ ENV KVIATOR_VERSION 0.0.7
 ENV CONFD_VERSION 0.11.0
 
 # Install prerequisites
-RUN apt-get update &&  apt-get install -y wget unzip jq \
+RUN apt-get update &&  apt-get install -y wget unzip jq python-pip \
  && apt-get update \
  && apt-get install -y wget unzip jq apt-transport-https \
  && wget -q -O- 'https://download.ceph.com/keys/release.asc' | apt-key add - \
